@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>Welcome Back! {{user.first_name}}!</h1>
+
+    <form action="/update/company" method="post" class="col-11 p-4 my-4 mx-auto">
+        <h1>Create Company: </h1>
+        <div class="d-flex justify-content-around">
+            <div class="col-8">
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" name="location" class="form-control" value="{{edit.location}}">
+                </div>
+                <div class="form-group">
+                    <label for="name">The Company Name:</label>
+                    <textarea name="name"  cols="30" rows="5" class="form-control">{{edit.name}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="company_email">Email:</label>
+                    <input type="text" name="company_email" class="form-control" value="{{edit.company_email}}">
+                </div>
+                <div class="form-group">
+                    <label for="company_password">Password:</label>
+                    <input type="password" name="company_password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="confirm">Confirm Password:</label>
+                    <input type="password" name="confirm" class="form-control">
+                </div>
+            </div>
+
+        </div>
+        <br>
+            <input type="submit" value="Report" class="btn btn-primary">
+            
+    </form>
+
+{% endblock %}
