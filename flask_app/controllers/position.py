@@ -8,10 +8,10 @@ bcrypt = Bcrypt(app)
 
 @app.route('/new/position')
 def new_position():
-    if 'user_id' not in session:
+    if 'company_id' not in session:
         return redirect('/')
     data = {
-        "id":session["user_id"]
+        "id":session["company_id"]
     }
     return render_template('new_position.html',company=Company.get_one(data))
 
@@ -25,9 +25,8 @@ def create_position():
         "positions": request.form["positions"],
         "salary": request.form["salary"],
         "introduction": request.form["introduction"],
-        "comapny_id": session["id"]
+        "comapny_id": session["company_id"]
     }
-    print(data)
     position = Position.save(data)
     session['id'] = position
     return redirect('/')
@@ -35,10 +34,58 @@ def create_position():
 
 @app.route('/destroy_position/<int:id>')
 def destroy_position(id):
-    if 'user_id' not in session:
+    if 'company_id' not in session:
         return redirect('/')
     data = {
         "id":id
     }
     Position.destroy(data)
+    return redirect('/')
+
+
+@app.route('/show_position/<int:id>')
+def show_position(id):
+    if 'company_id' not in session:
+        return redirect('/')
+    data = {
+        "id":id
+    }
+    user_data = {
+        "id":session['user_id']
+    }
+    company_data = {
+        "id": session['company_id']
+    }
+    return render_template("show_pos.html",position=Position.get_one_with_creator(company_data),user=User.get_by_id(user_data))
+
+
+@app.route('/edit_position/<int:id>')
+def edit_position(id):
+    if 'company_id' not in session:
+        return redirect('/')
+    data = {
+        "id":id
+    }
+    user_data = {
+        "id":session['user_id']
+    }
+    return render_template("edit_pos.html",position=Position.get_one(data), user=User.get_by_id(user_data))
+
+@app.route('/update/position',methods=['POST'])
+def update_position():
+    if 'company_id' not in session:
+        return redirect('/')
+    if not Position.validate_recipe(request.form):
+        return redirect('/new/position')
+
+    print(session)
+
+    data = {
+        "positions": request.form["positions"],
+        "salary": request.form["salary"],
+        "introduction": request.form["introduction"],
+        "user_id": session["user_id"],
+        "id": session["id"]
+    }
+    Position.update(data)
     return redirect('/')

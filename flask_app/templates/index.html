@@ -31,6 +31,7 @@
                 <th>Position</th>
                 <th>Salary</th>
                 <th>Introduction</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -39,6 +40,7 @@
                 <td>{{i.positions}}</td>
                 <td>{{i.salary}}</td>
                 <td>{{i.introduction}}</td>
+                <td><a href="/show_position/{{i.id}}">Show</a></td>
             </tr>
             {% endfor %}
         </tbody>

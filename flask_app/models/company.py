@@ -67,6 +67,21 @@ class Company:
         query = "DELETE FROM company WHERE id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
+    @classmethod
+    def get_all_position(cls, data):
+        query = "SELECT * FROM company LEFT JOIN position ON position.comapny_id = company.id WHERE position.comapny_id=%(id)s;"
+        result = connectToMySQL(cls.db_name).query_db(query, data)
+        position = []
+        for i in result:
+            position_info = {
+                "id":i["position.id"],
+                "positions": i["positions"],
+                "salary": i["salary"],
+                "introduction": i["introduction"]
+            }
+            position.append(position_info)
+        return position
+
     @staticmethod
     def validate_recipe(company):
         is_valid = True

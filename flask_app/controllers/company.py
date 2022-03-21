@@ -60,7 +60,6 @@ def update_company():
         "user_id": session["user_id"],
         "id": session["id"]
     }
-    print(data)
     Company.update(data)
     return redirect('/')
 
@@ -71,12 +70,14 @@ def show_company(id):
     data = {
         "id":id
     }
+    session['company_id'] = id
     user_data = {
         "id":session['user_id']
     }
     return render_template("show_company.html",
                             company=Company.get_one(data),
-                            user=User.get_by_id(user_data))
+                            user=User.get_by_id(user_data),
+                            position=Company.get_all_position(data))
 
 @app.route('/destroy_company/<int:id>')
 def destroy_tv(id):

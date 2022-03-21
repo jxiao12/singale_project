@@ -10,15 +10,15 @@ class Position:
         self.positions = data["positions"]
         self.salary = data["salary"]
         self.introduction = data["introduction"]
-        self.create_at = data['create_at']
+        self.create_at = data['crate_at']
         self.upload_at = data['upload_at']
-        self.company_id = data['company_id']
+        self.comapny_id = data['comapny_id']
         self.creator = None
 
 
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO position (positions, salary, introduction, company_id) VALUES(%(positions)s,%(salary)s, %(introduction)s, %(company_id)s);"
+        query = "INSERT INTO position (positions, salary, introduction, comapny_id) VALUES(%(positions)s,%(salary)s, %(introduction)s, %(comapny_id)s);"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
     @classmethod
@@ -38,16 +38,17 @@ class Position:
 
     @classmethod
     def get_one_with_creator(cls, data):
-        query = "SELECT * FROM company LEFT JOIN position ON company.id = position.company_id WHERE position.company_id=%(id)s;"
+        query = "SELECT * FROM company LEFT JOIN position ON company.id = position.comapny_id WHERE position.comapny_id=%(id)s;"
         result = connectToMySQL(cls.db_name).query_db(query, data)
         one_show = cls(result[0])
         company_info = {
-            'id':result[0]['company_id'],
+            'id':result[0]['comapny_id'],
             'name':result[0]['name'],
             'location':result[0]['location'],
             'company_email':result[0]['company_email'],
             'company_password':result[0]['company_password'],
             'create_at':result[0]['create_at'],
+            'user_id': result[0]['user_id'],
             'upload_at':result[0]['upload_at'],
         }
         one_user = company.Company(company_info)
@@ -56,7 +57,7 @@ class Position:
 
     @classmethod
     def update(cls, data):
-        query = "UPDATE position SET positions=%(positions)s, salary=%(salary)s, introduction=%(introduction)s, update_at=NOW() WHERE id=%(id)s;"
+        query = "UPDATE position SET positions=%(positions)s, salary=%(salary)s, introduction=%(introduction)s, upload_at=NOW() WHERE id=%(id)s;"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
     @classmethod
