@@ -46,7 +46,7 @@ def destroy_position(id):
 @app.route('/show_position/<int:id>')
 def show_position(id):
     if 'company_id' not in session:
-        return redirect('/')
+        return render_template("show_pos.html",position=Position.get_one({"id":id}))
     data = {
         "id":id
     }

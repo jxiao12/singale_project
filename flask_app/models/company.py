@@ -14,10 +14,11 @@ class Company:
         self.location = data['location']
         self.company_email = data['company_email']
         self.company_password = data['company_password']
+        self.count = data['employee_count']
         self.create_at = data['create_at']
         self.upload_at = data['upload_at']
-        self.user_id = data['user_id']
-        self.creator = None
+        # self.user_id = data['user_id']
+        # self.creator = None
 
     @classmethod
     def save(cls, data):
@@ -39,23 +40,23 @@ class Company:
         results = connectToMySQL(cls.db_name).query_db(query,data)
         return cls( results[0] )
 
-    @classmethod
-    def get_one_with_creator(cls, data):
-        query = "SELECT * FROM user LEFT JOIN company ON user.id = company.user_id WHERE company.user_id=%(id)s;"
-        result = connectToMySQL(cls.db_name).query_db(query, data)
-        one_show = cls(result[0])
-        creator_info = {
-            'id':result[0]['user_id'],
-            'first_name':result[0]['first_name'],
-            'last_name':result[0]['last_name'],
-            'email':result[0]['email'],
-            'password':result[0]['password'],
-            'create_at':result[0]['create_at'],
-            'upload_at':result[0]['upload_at'],
-        }
-        one_user = user.User(creator_info)
-        one_show.creator = one_user
-        return one_show
+    # @classmethod
+    # def get_one_with_creator(cls, data):
+    #     query = "SELECT * FROM user LEFT JOIN company ON user.id = company.user_id WHERE company.user_id=%(id)s;"
+    #     result = connectToMySQL(cls.db_name).query_db(query, data)
+    #     one_show = cls(result[0])
+    #     creator_info = {
+    #         'id':result[0]['user_id'],
+    #         'first_name':result[0]['first_name'],
+    #         'last_name':result[0]['last_name'],
+    #         'email':result[0]['email'],
+    #         'password':result[0]['password'],
+    #         'create_at':result[0]['create_at'],
+    #         'upload_at':result[0]['upload_at'],
+    #     }
+    #     one_user = user.User(creator_info)
+    #     one_show.creator = one_user
+    #     return one_show
 
     @classmethod
     def update(cls, data):

@@ -88,3 +88,6 @@ def destroy_tv(id):
     }
     Company.destroy(data)
     return redirect('/')
+
+# Coding Dojo Support <support@codingdojo.com>
+# scatli@codingdojo.com

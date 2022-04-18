@@ -12,8 +12,7 @@
     <nav class="d-flex justify-content-between align-items-center col-12">
         <div></div>
         <div class="d-flex col-4 justify-content-around">
-            <a href="/user_main/{{user.id}}"" class="btn btn-primary">Personal Page</a>
-            <a href="/logout" class="btn btn-info">Logout</a>
+            <a class="nav-item nav-link" href="/">main page</a>
         </div>
 
     </nav>
@@ -23,7 +22,7 @@
             <h2>Position: {{position.positions}}</h2>
             <p class="card-text">Description:  {{position.introduction}}</p>
             <p class="card-text">Salary:  {{position.salary}}</p>
-            <p class="card-text">Post By: {{position.creator.name}}</p>
+            <!-- <p class="card-text">Post By: {{position.creator.name}}</p> -->
         </div>
     </div>
 </body>

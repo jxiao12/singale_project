@@ -30,8 +30,8 @@
                 Dropdown
               </a>
               <div class="dropdown-menu" aria-labelledby="navbar-dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Action2</a>
+                <a class="dropdown-item" href="https://www.google.com/">Google</a>
+                <a class="dropdown-item" href="https://github.com/">Github</a>
                 <a class="dropdown-item" href="#">Something else here</a>
   
                 <!-- Use this to separate a new link: -->
@@ -53,6 +53,9 @@
             {% if user is defined %}
                 <a class="nav-item nav-link" href="/user_main/{{user.id}}">{{user.first_name}}  {{user.last_name}}</a>
                 <a class="nav-item nav-link" href="/logout" class="btn btn-info"><strong>Logout</strong></a>
+            {% elif company_user is defined %}
+                <!-- <a class="nav-item nav-link" href="/user_main/{{user.id}}">{{user.first_name}}  {{user.last_name}}</a>
+                <a class="nav-item nav-link" href="/logout" class="btn btn-info"><strong>Logout</strong></a> -->
             {% else %}
                 <a class="nav-item nav-link" href="/login_or_register">Log In</a>
                 <a class="nav-item nav-link" href="/login_or_register">Register</a>

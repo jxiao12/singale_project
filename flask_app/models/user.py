@@ -13,9 +13,9 @@ class User:
         self.last_name = data['last_name']
         self.email = data['email']
         self.password = data['password']
+        self.address = data['address']
         self.create_at = data['create_at']
         self.upload_at = data['upload_at']
-        self.company = []
 
 
     @classmethod
@@ -46,21 +46,21 @@ class User:
         results = connectToMySQL(cls.db_name).query_db(query,data)
         return cls(results[0])
 
-    @classmethod
-    def get_all_company(cls, data):
-        query = "SELECT * FROM user LEFT JOIN company ON user.id = company.user_id WHERE company.user_id=%(id)s;"
-        result = connectToMySQL(cls.db_name).query_db(query, data)
-        company = []
-        for i in result:
-            company_info = {
-                "id":i["company.id"],
-                "name": i["name"],
-                "location": i["location"],
-                "company_email": i["company_email"],
-                "company_password": i["company_password"],
-            }
-            company.append(company_info)
-        return company
+    # @classmethod
+    # def get_all_company(cls, data):
+    #     query = "SELECT * FROM user LEFT JOIN company ON user.id = company.user_id WHERE company.user_id=%(id)s;"
+    #     result = connectToMySQL(cls.db_name).query_db(query, data)
+    #     company = []
+    #     for i in result:
+    #         company_info = {
+    #             "id":i["company.id"],
+    #             "name": i["name"],
+    #             "location": i["location"],
+    #             "company_email": i["company_email"],
+    #             "company_password": i["company_password"],
+    #         }
+    #         company.append(company_info)
+    #     return company
 
         # one_show = cls(result[0])
         # creator_info = {
