@@ -1,0 +1,24 @@
+/* body{
+    height: 100%;
+  } */
+
+html {
+    height: 100%;
+    background-image: url(image/globe.gif);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+ }
+
+ #find_table { 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#user_login{
+  background-image: url(image/globe.gif);
+}
+ 

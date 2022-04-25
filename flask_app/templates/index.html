@@ -1,50 +1,83 @@
 {% extends "base.html" %}
 {% block content %}
 
+
+{% if position_kind is defined %}
+<h1>kind</h1>
+{% elif position_place is defined %}
+<h1>place</h1>
+{% else %}
+<div class="d-flex justify-content-around" id="find_table">
+    <form action="/job_kind" method="post">
+        <div class="form-group">
+            <label for="title" class="p-3 mb-2 bg-transparent text-light bg-dark">What's your Favorite Job:</label>
+            <input type="text" name="title" class="form-control">
+        </div>
+        <input type="submit" value="Search" class="btn btn-primary float-right">
+    </form>
+
+    <h3 class="p-3 mb-2 bg-transparent text-light bg-dark">Or:</h3>
+
+    <form action="/job_place" method="post">
+        <div class="form-group">
+            <label for="place" class="p-3 mb-2 bg-transparent text-light bg-dark">Your Location:</label>
+            <input type="text" name="place" class="form-control">
+        </div>
+        <input type="submit" value="Search" class="btn btn-primary float-right">
+    </form>
+</div>
+
 <div class="col-8 mx-auto">
-    <h2>Company Info:</h2>
+    <h1>All Company </h1>
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Location</th>
                 <th>Email</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             {% for i in company %}
             <tr>
                 <td>{{i.name}}</td>
-                <td>{{i.location}}</td>
+                <td>{{i.city}}, {{i.state}}, {{i.country}}</td>
                 <td>{{i.company_email}}</td>
+                <td>
+                    <a href="/show/{{i.id}}">Show</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
 </div>
 
 <div class="col-8 mx-auto">
-    <h2>Position Info:</h2>
+    <h1>Some Poisition </h1>
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Position</th>
+                <th>Positions</th>
                 <th>Salary</th>
-                <th>Introduction</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             {% for i in positions %}
             <tr>
-                <td>{{i.positions}}</td>
+                <td>{{i.pos}}</td>
                 <td>{{i.salary}}</td>
-                <td>{{i.introduction}}</td>
-                <td><a href="/show_position/{{i.id}}">Show</a></td>
+                <td>
+                    <a href="/show/{{i.id}}">Show</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
 </div>
+{% endif %}
 
 {% endblock %}

@@ -10,6 +10,8 @@ class Position:
         self.positions = data["positions"]
         self.salary = data["salary"]
         self.introduction = data["introduction"]
+        self.kind = data["kind"]
+        self.place = data["place"]
         self.create_at = data['crate_at']
         self.upload_at = data['upload_at']
         self.comapny_id = data['comapny_id']
@@ -18,7 +20,7 @@ class Position:
 
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO position (positions, salary, introduction, comapny_id) VALUES(%(positions)s,%(salary)s, %(introduction)s, %(comapny_id)s);"
+        query = "INSERT INTO position (positions, salary, introduction, kind, place, comapny_id) VALUES(%(positions)s,%(salary)s, %(introduction)s, %(kind)s, %(place)s, %(comapny_id)s);"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
     @classmethod
@@ -35,6 +37,18 @@ class Position:
         query = "SELECT * FROM position WHERE id = %(id)s;"
         results = connectToMySQL(cls.db_name).query_db(query,data)
         return cls( results[0] )
+
+    @classmethod
+    def get_kind(cls,data):
+        query = "SELECT * FROM position WHERE kind = %(kind)s;"
+        results = connectToMySQL(cls.db_name).query_db(query,data)
+        return cls( results )
+
+    @classmethod
+    def get_place(cls,data):
+        query = "SELECT * FROM position WHERE place = %(place)s;"
+        results = connectToMySQL(cls.db_name).query_db(query,data)
+        return cls( results )
 
     @classmethod
     def get_one_with_creator(cls, data):
@@ -57,7 +71,7 @@ class Position:
 
     @classmethod
     def update(cls, data):
-        query = "UPDATE position SET positions=%(positions)s, salary=%(salary)s, introduction=%(introduction)s, upload_at=NOW() WHERE id=%(id)s;"
+        query = "UPDATE position SET positions=%(positions)s, salary=%(salary)s, introduction=%(introduction)s, kind=%(kind)s, place=%(place)s, upload_at=NOW() WHERE id=%(id)s;"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
     @classmethod
